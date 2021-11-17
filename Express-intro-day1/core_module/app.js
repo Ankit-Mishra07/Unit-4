@@ -10,7 +10,8 @@ const userResitered = () => {
     eventEmitter.on("userRegistered", sendVerification)
     eventEmitter.on("userRegistered", sendWelcome)
 
-    eventEmitter.emit("userRegistered")
+    eventEmitter.emit("userRegistered", {name : "Ankit Mishra"})
+    eventEmitter.emit("userRegisteredAgain")
 }
 userResitered()
 
