@@ -4,10 +4,24 @@ const app = express();
 
 const users = require("./MOCK_DATA.json")
 
+// const autorise = (permission) => {
+
+//     return (req, res, next) => {
+//         console.log(permission)
+//         next()
+//     }
+// }
+
 const autorise = (permission) => {
 
     return (req, res, next) => {
-        console.log(permission)
+        const originalSendFunc = res.send.bind(res);
+        
+        res.send = function(body) {
+            body.name = "Nrupul"
+            body.users = users
+            return originalSendFunc(body)
+        };
         next()
     }
 }
@@ -29,8 +43,13 @@ app.get("/users/:email", (req,res) => {
 })
 
 app.post("/users" , authenticate, autorise("ankit"), (req, res) => {
+    res.send({name: "Ankit Mishra"})
+})
+
+app.post("/finance" , authenticate, autorise("Masai School"), (req, res) => {
     res.send("from inside post")
 })
+
 
 
 app.listen(2003, () => {
