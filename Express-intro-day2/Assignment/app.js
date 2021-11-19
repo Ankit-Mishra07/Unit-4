@@ -4,6 +4,10 @@ const app = express()
 
 app.use(express.json());
 
+const logger = (req, res, next) => {
+    next()
+}
+
 const books = require("./books.json")
 
 const api_requested_by="Ankit Mishra"
@@ -13,7 +17,7 @@ app.get("/", (req, res) => {
 })
 
 app.post("/books", (req, res) => {
-    const newuser = {api_requested_by:"Ankit Mishra" ,books:[...books, req.body]}
+    const newuser = {api_requested_by ,books:[...books, req.body]}
     res.send(newuser)
 })
 
